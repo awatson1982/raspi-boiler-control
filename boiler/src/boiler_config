@@ -1,17 +1,17 @@
 [DEFAULT]
 
-logLocation = /home/awatson/boiler/boiler.log
-database = host='192.168.0.112' dbname='boiler' user='postgres' password='tuppence123'
-sessionDir = /home/awatson/boiler/sessions/
+logLocation = /home/adam/boiler/boiler.log
+database = host='192.168.0.54' dbname='boiler' user='postgres' password='tuppence123'
+sessionDir = /home/adam/boiler/sessions/
 cookieSecret = kjdsh8678dfs65f7s5df76f7v65dsu78
 gpio = 15
-host = 192.168.0.5
+host = 192.168.0.49
 port = 99
 server = meinheld
 tolerance = 2
 logtype = screen
 loopsleep = 15
-static = /home/awatson/boiler/bootstrap-3.1.1-dist
+static = /home/adam/boiler/bootstrap
 roomProbe = /home/awatson/boiler/testTemp/roomTemp
 radProbe = /home/awatson/boiler/testTemp/radTemp
 outsideProbe = /home/awatson/boiler/testTemp/outsideTemp

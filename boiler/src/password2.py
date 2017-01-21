@@ -1,8 +1,8 @@
-
 import psycopg2
 from passlib.hash import sha512_crypt
 from get_props import prop
 import logging
+
 
 logtype = prop('logtype')
 if logtype == 'file':
@@ -36,7 +36,7 @@ def check_password(password, userid):
     logging.debug('username/password to check is %s/%s' % (userid, password))
     dbpassword = get_password(userid)
     if dbpassword is not None:
-        if sha512.verify(password, dbpassword):
+        if sha512_crypt.verify(password, dbpassword):
             logging.debug('password correct')
             return True
         else:
