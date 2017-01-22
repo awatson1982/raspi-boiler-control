@@ -1,6 +1,9 @@
 import psycopg2
 from get_props import prop
 import logging
+import requests
+
+
 
 class temp:
     
@@ -22,17 +25,27 @@ class temp:
             Probe = prop('radProbe')
         elif sensor == 'outside':
             Probe = prop('outsideProbe')
-        try: 
-            f=open(Probe, 'r')
-            for l in f:
-                    if 't=' in l:
-                            temp=(float(l.split('=',1)[1].strip().replace('\n', '')))/1000
-            f.close()
-        except Exception as e:
-            logging.debug(e)
+        if sensor in ('rad', 'outside'):
+            try: 
+                f=open(Probe, 'r')
+                for l in f:
+                        if 't=' in l:
+                                temp=(float(l.split('=',1)[1].strip().replace('\n', '')))/1000
+                f.close()
+            except Exception as e:
+                logging.debug(e)
+        else:
+            try:
+                tempAPI = requests.get(Probe)
+                if tempAPI.status_code != 200:
+                    raise Exception('GET /temp/ {}'.format(tempAPI.status_code) )
+                temp = tempAPI.json()['temp'] 
+            except Exception as e:
+                logging.debug(e)
+        
         
         return temp 
-    
+            
 
     def check_temp(self):
         logtype = prop('logtype')

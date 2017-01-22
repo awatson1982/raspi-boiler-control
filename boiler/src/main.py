@@ -47,7 +47,10 @@ def main():
             password = request.forms.get('password').strip()
             logging.debug(password)
             if auth.passwd(username, password).check_password() == True:
-                set_session(rqstSession)            
+                set_session(rqstSession)
+                roomTemp = check_temp.temp('room').get_temp()
+                radTemp = check_temp.temp('rad').get_temp()
+                outsideTemp = check_temp.temp('outside').get_temp()            
                 return template('main', roomTemp=roomTemp, radTemp=radTemp, outsideTemp=outsideTemp)           
             else:
                 return template('login')
@@ -134,6 +137,7 @@ def get_schedule():
                 rows = cursor.fetchall()
                 cursor.close()
                 tmpl = []
+                count = 0
                 for row in rows:
                     count = row[1]
                     tmpl.append(row[0])
